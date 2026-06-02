@@ -5592,7 +5592,8 @@
                       Bpk/ibu/Saudara/i</h2>
                   </div>
                 </div>
-                <div class="elementor-element elementor-element-e74060e elementor-widget elementor-widget-heading"
+                <div
+                  class="elementor-element elementor-element-e74060e namatamu elementor-widget elementor-widget-heading"
                   data-id="e74060e" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
                   <div class="elementor-widget-container">
                     <h2 class="elementor-heading-title elementor-size-default">Nama Tamu</h2>
@@ -5633,11 +5634,18 @@
                     <script type="text/javascript">
                       (() => {
                         if (!document.querySelector('.qr_checkin').hasChildNodes()) {
+                          const urlParams = new URLSearchParams(window.location.search);
+                          let name = urlParams.get('to');
+                          if (!name && window.location.hash) {
+                            const hash = window.location.hash.substring(1);
+                            const hashParams = new URLSearchParams(hash);
+                            name = hashParams.get('to');
+                          }
                           const qr_checkin_050 = new QRCodeStyling({
                             width: 150,
                             height: 150,
                             type: "svg",
-                            data: "",
+                            data: name || "Tamu Undangan",
                             image: "",
                             qrOptions: {
                               errorCorrectionLevel: "Q"
@@ -5736,13 +5744,9 @@
                         proxy: "https://youinvited.id/",
                         imageTimeout: 30000, //Timeout 
                         allowTaint: true,
-                        scale: 1.5,
-                        width: window.innerWidth,
-                        height: window.innerHeight,
-                        scrollX: window.pageXOffset,
-                        scrollY: window.pageYOffset,
-                        x: window.pageXOffset,
-                        y: window.pageYOffset
+                        scale: 2,
+                        scrollX: 0,
+                        scrollY: 0
                       }).then(function (canvas) {
                         downloadURI(canvas.toDataURL("image/png"), 'eInvitation.png');
                         $('.downloadInv .elementor-button-text').html('Download e-Invitation');
